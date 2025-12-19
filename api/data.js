@@ -1,6 +1,14 @@
 import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   if (req.method === 'GET') {
     try {
       const data = await kv.get('my-json-store');
@@ -10,6 +18,7 @@ export default async function handler(req, res) {
     }
     return;
   }
+
   if (req.method === 'POST') {
     try {
       const body = await req.json();
@@ -20,6 +29,7 @@ export default async function handler(req, res) {
     }
     return;
   }
+
   if (req.method === 'PUT') {
     try {
       const existing = await kv.get('my-json-store') || {};
@@ -32,6 +42,7 @@ export default async function handler(req, res) {
     }
     return;
   }
+
   if (req.method === 'DELETE') {
     try {
       await kv.del('my-json-store');
@@ -41,7 +52,6 @@ export default async function handler(req, res) {
     }
     return;
   }
-  res.status(405).json({ error: 'Method not allowed' });
-}
 
-module.exports = handler;
+  res.status(405).json({ error: 'Method not allowed' })
+}
