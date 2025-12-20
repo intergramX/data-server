@@ -1,5 +1,5 @@
 {
-  "name": "vercel-json-storage",
+  "name": "intergramx-storage",
   "version": "1.0.0",
   "scripts": {
     "start": "node api/data.js"
