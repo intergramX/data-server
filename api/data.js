@@ -38,13 +38,6 @@ export default async function handler(req, res) {
       if (updateError) throw updateError;
       return res.status(200).json({ success: true, data: merged });
     }
-
-    if (req.method === 'DELETE') {
-      const { error } = await supabase.from('json_data').delete();
-      if (error) throw error;
-      return res.status(200).json({ success: true });
-    }
-
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
     console.error('Supabase error:', error);
