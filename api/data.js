@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const { data, error } = await supabase.from('json_data').select('data').order('created_at', { ascending: false }).limit(1);
       if (error) throw error;
-      return res.status(200).json(data[0]?.data || {});
+      return res.status(200).json(data[0]?.data);
     }
 
     if (req.method === 'POST') {
@@ -45,4 +45,4 @@ export default async function handler(req, res) {
     console.error('Supabase error:', error);
     return res.status(500).json({ error: 'Error: ', details: error.message });
   }
-}
+        }
