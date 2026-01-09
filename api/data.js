@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 export default async function handler(req, res) {
-  const allowedOrigins = ['https://intergramx.github.io', 'https://scrajang-studios.github.io'];
+  const allowedOrigins = ['https://intergramx.github.io', 'https://scrajang-studios.github.io', 'https://t-smod.github.io/'];
   const origin = req.headers.origin;
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
