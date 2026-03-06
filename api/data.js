@@ -3,20 +3,13 @@ import { createClient } from '@supabase/supabase-js';
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 export default async function handler(req, res) {
-  const allowedOrigins = ['https://intergramx.github.io', 'https://scrajang-studios.github.io'];
+  const allowedOrigins = ['https://intergramx.github.io', 'https://scrajang-studios.github.io', 'https://shaman2016scratch.github.io'];
   const origin = req.headers.origin;
 
-  if (!origin || !allowedOrigins.includes(origin)) {
+  if (!allowedOrigins.includes(origin)) {
     return res.status(403).json({
-      intergramX: {},
-      ScraJang: {},
-      status: {
-        from_url: origin || 'unknown',
-        text: '403, Forbidden',
-        code: '403',
-        server_response: { error: true, ok: false, text: 'The URL is prohibited.' },
-        supabase_response: null
-      }
+      ok: false,
+      error: 'ORIGIN'
     });
   }
 
@@ -86,29 +79,15 @@ export default async function handler(req, res) {
     }
 
     return res.status(405).json({
-      intergramX: {},
-      ScraJang: {},
-      status: {
-        from_url: origin,
-        text: '405, Method Not Allowed',
-        code: '405',
-        server_response: { error: true, ok: false, text: 'Method not allowed.' },
-        supabase_response: null
-      }
+      ok: false,
+      error: ''
     });
 
   } catch (error) {
-    console.error('Supabase error:', error);
+    console.error('Error: ', error);
     return res.status(500).json({
-      intergramX: {},
-      ScraJang: {},
-      status: {
-        from_url: origin,
-        text: '500, Internal Server Error',
-        code: '500',
-        server_response: { error: true, ok: false, text: error.message },
-        supabase_response: error
-      }
+      ok: false,
+      error: error
     });
   }
 }
