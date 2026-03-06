@@ -5,6 +5,7 @@
     "start": "node api/data.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.40.4"
+    "firebase": "^10.12.0",
+    "firebase-admin": "^12.3.0"
   }
 }
